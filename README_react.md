@@ -14,6 +14,17 @@
 
 - Components have `state()` and `render()`. `state()` contains objects of data. `render()` defines how to display somethings to user. Classified components should be reused and independent. The components of `React` has virtual DOM Tree. In case some of child components are called by `render()` because current component has changes, `React` compares between virtual DOM Tree on his own and previous DOM Tree on browser at first and updates necessary changes at DOM Tree on browser. So, speed of operating application is not slow even though many components are called on virtual DOM Tree.
 
+- <img src="./img/react.png" width="700" height="400">
+  <img src="./img/dom.png" width="700" height="400">
+
+### 2-3. Components with class and function
+
+- `state()` is vessel that can hold datas of state. It seems like `constructor()` of class on `javascript`. Updated data should be displayed to user with `render()` when changed `state()`. In case of defined functions on `React`, `lifecycle method` could be used to call the functions on his own when events. The event contains to update/finish DOM Tree and render.
+
+- `React` is components. The components could be created with class and function. In case of class, components could be extended to append their property to other child component. In case of function, components could be used when data has no state on static condition. The designers have had difficulty to cooperate with developers using `React` because principle of class was so difficult to the designers. `React hook` was launched on 16.8 version of `React` to improve designer's difficulty and increase work efficiency. However, the launch date was on 6th Jan in 2019. The prior projects already was created with class of `React`. So, developer should learn `React hook`, class and have ability to creat project with both of them.
+
+- <img src="./img/component.png" width="700" height="400">
+
 ### 3. Period : 2 day
 
 ### 4. Programs needed to operate React
@@ -26,9 +37,13 @@
 
 - `npm` means program of package manager that could download and update libraries. The developer could install, uninstall and update libraries with `package.json`. `package.json` includes information of libraries such as version, scripts, and so on.
 
-### 5. Resolution of failures
+### 5. React basic
 
-#### 5-1.
+-
+
+### 6. Resolution of failures
+
+#### 6-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -36,12 +51,11 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 5-2.
+#### 6-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
 - <img src="./img/error2.png" width="700" height="250">
-
 
 - countermeasure: `yarn create react-app test1` could be divided to `yarn global add create-react-app` and `create-react-app test1`. Please type commands in sequence. And then, type `yarn start` when path of cmder moves to directory named `test1`.
 

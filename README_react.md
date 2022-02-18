@@ -33,13 +33,23 @@
 
 - Javascript runtime environment(framework) that executes javascript code outside a web browser. Thanks to `node.js`, javascript could be operated on everywhere. In addition, `node.js` would be used not only to creat back-end server but also to update server-side rendering.
 
-#### 4-2. npm
+#### 4-2. npm and yarn
 
 - `npm` means program of package manager that could download and update libraries. The developer could install, uninstall and update libraries with `package.json`. `package.json` includes information of libraries such as version, scripts, and so on.
 
+- `yarn` is also program of package manager. It was launched to resolve some of npm's shortcomings. `yarn` is faster, higher performance, more secure than `npm`. In addition, `yarn` operates on `npm` protocol with `package.json`.
+
+- To apply fontawesome to `React`, library should be installed on local. In case of `npm`, use `npm install --save @fortawesome/fontawesome-free`. In case of `yarn`, use `yarn add @fortawesome/fontawesome-free`. And then, add import on `index.jsx`. In case of between `npm` and `yarn`, use `import '@fortawesome/fontawesome-free/js/all.js'`.
+
 ### 5. React basic
 
--
+#### 5-1. Difference of React
+
+- There are 4 difference as below.
+  1. Javascript code that includes tags formed HTML.
+  2. Code block '{}' should be covered between tags to display values of not only variable but also array. In case value is undefined, `React` can not display output related to undefined. In case of adding conditional operator `&&`, code block '{}' is also covered. The variable and `&&` would be displayed on window tab if not code block '{}'.
+  3. Use `<React.Frangment></React.Fragment>` to use binary nodes at the same time instead of `<div></div>`. `<></>` is also same as `<React.Frangment></React.Fragment>`. There would be `module build failed` if you do not use `<React.Frangment></React.Fragment>`.
+  4. keyword `return()` should be typed within function to display values on window tab.
 
 ### 6. Resolution of failures
 

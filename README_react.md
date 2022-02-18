@@ -51,6 +51,16 @@
   3. Use `<React.Frangment></React.Fragment>` to use binary nodes at the same time instead of `<div></div>`. `<></>` is also same as `<React.Frangment></React.Fragment>`. There would be `module build failed` if you do not use `<React.Frangment></React.Fragment>`.
   4. keyword `return()` should be typed within function to display values on window tab.
 
+#### 5-2. Connection with React-DOM
+
+- Browser can understand `HTML`, `CSS`, `vanilla javascript` except for `React`. So, `React` should be translated to `vanilla javascript` with `Babel`. `React-DOM` makes `HTML` connected with translated `vanilla javascript` for browser's good understanding.So, browser can display output on window tab according to connect `element of root` with `components` using `React-DOM`. `element of root` is `HTML`. `components` contains `HTML` and `javascript`. `javascript` could be translated to `vanilla javascript` using `Babel`.
+
+### 6. Commands
+
+- ctrl + c: come back to terminal after finishing the rendering of React.
+
+- cp -R `A folder` `B foler`: creat `B folder` and copy `A folder` to `B folder`.
+
 ### 6. Resolution of failures
 
 #### 6-1.

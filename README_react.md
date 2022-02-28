@@ -1,14 +1,16 @@
 ### 1. Project name: Learning React
 
-### 2. What is React
+### 2. Period : 3 day
+
+### 3. What is React
 
 - `React` is one of libraries with javascript using components. `React` is developed to creat UI(User Interface) and operate callback functions per event easily. `React` is launched in 2013 and the popularity increases rapidly from developers. `React` is used at not only facebook but also other big companies such as uber, netflix, instagram. Most of web application maybe are created with `React`. In case of complicated web application, ususally use MVC pattern. MVC is one of design patterns and application could be defined as model, view, controller. `React` could be classified to veiw layer.
 
-#### 2-1. Difference between framework and library
+#### 3-1. Difference between framework and library
 
 - In case of framework, it takes a long time to learn framework and developer could learn once again when framework has some of large changes with new concept. In contrast, in case of library, developer could build up function freely because library has not fixed structure such as framework. So, developer could learn library more fun and more easily than framework.
 
-#### 2-2. good things regarding React
+#### 3-2. good things regarding React
 
 - `React` is compatible with previous version when it has new revision. Since huge community was already formed, `React` has updated well-arranged documents continueously. There is possibility that other developers already solved the problem and shared their solution when you face the problem. In addtion, the developer could creat a variety of applications with `React`. In case of using `React`, web application could be created. In case of `React Native`, mobile application could be created. In case of using `React` and `Electron`, desktop application could be created.
 
@@ -17,15 +19,13 @@
 - <img src="./img/react.png" width="700" height="400">
   <img src="./img/dom.png" width="700" height="400">
 
-### 2-3. Components with class and function
+#### 3-3. Components with class and function
 
 - `state()` is vessel that can hold datas of state. It seems like `constructor()` of class on `javascript`. Updated data should be displayed to user with `render()` when changed `state()`. In case of defined functions on `React`, `lifecycle method` could be used to call the functions on his own when events. The event contains to update/finish DOM Tree and render.
 
-- `React` is components. The components could be created with class and function. In case of class, components could be extended to append their property to other child component. In case of function, components could be used when data has no state on static condition. The designers have had difficulty to cooperate with developers using `React` because principle of class was so difficult to the designers. `React hook` was launched on 16.8 version of `React` to improve designer's difficulty and increase work efficiency. However, the launch date was on 6th Jan in 2019. The prior projects already was created with class of `React`. So, developer should learn `React hook`, class and have ability to creat project with both of them.
+- `React` is components. The components could be created with `class` and `function`. In case of `class`, components could be extended to append their property to other child component. In case of `function`, components could be used when not only any data is not related to state() but also there is on static condition. The designers have had difficulty to cooperate with developers using `React` because principle of `class` was so difficult to the designers. `React hook` was launched on 16.8 version of `React` to improve designer's difficulty and increase work efficiency. In case of `React hook`, components could use state() when dynamic condition such as class. However, the launch date was on 6th Jan in 2019. The prior projects already was created with `class` of `React`. So, developer should learn `React hook`, `class` and have ability to creat project with both of them.
 
 - <img src="./img/component.png" width="700" height="400">
-
-### 3. Period : 2 day
 
 ### 4. Programs needed to operate React
 
@@ -39,31 +39,116 @@
 
 - `yarn` is also program of package manager. It was launched to resolve some of npm's shortcomings. `yarn` is faster, higher performance, more secure than `npm`. In addition, `yarn` operates on `npm` protocol with `package.json`.
 
+- In case of `npm`, type `npm create react-app <folder name>` on current node. And then, move to folder name and `npm start` to operate `React`. In case of `yarn`, type `yarn global add create-react-app` and `create-react-app <folder name>` on current node. And then, move to folder name and `yarn start` to operate `React`.
+
 - To apply fontawesome to `React`, library should be installed on local. In case of `npm`, use `npm install --save @fortawesome/fontawesome-free`. In case of `yarn`, use `yarn add @fortawesome/fontawesome-free`. And then, add import on `index.jsx`. In case of between `npm` and `yarn`, use `import '@fortawesome/fontawesome-free/js/all.js'`.
 
 ### 5. React basic
 
 #### 5-1. Difference of React
 
-- There are 4 difference as below.
-  1. Javascript code that includes tags formed HTML.
-  2. Code block '{}' should be covered between tags to display values of not only variable but also array. In case value is undefined, `React` can not display output related to undefined. In case of adding conditional operator `&&`, code block '{}' is also covered. The variable and `&&` would be displayed on window tab if not code block '{}'.
+- There are 4 differences as below.
+  1. Javascript code that includes tags formed HTML. To highlight react component file, use extension of file as `.jsx` instead of `.js`.
+  2. Code block '{}' should be covered between tags to display values of not only variable but also array. In case value is undefined, `React` can not display output related to undefined. In case of adding conditional operator `&&`, code block '{}' is also covered. The variable and `&&` would be displayed on window tab itself if not code block '{}'.
   3. Use `<React.Frangment></React.Fragment>` to use binary nodes at the same time instead of `<div></div>`. `<></>` is also same as `<React.Frangment></React.Fragment>`. There would be `module build failed` if you do not use `<React.Frangment></React.Fragment>`.
   4. keyword `return()` should be typed within function to display values on window tab.
 
 #### 5-2. Connection with React-DOM
 
-- Browser can understand `HTML`, `CSS`, `vanilla javascript` except for `React`. So, `React` should be translated to `vanilla javascript` with `Babel`. `React-DOM` makes `HTML` connected with translated `vanilla javascript` for browser's good understanding.So, browser can display output on window tab according to connect `element of root` with `components` using `React-DOM`. `element of root` is `HTML`. `components` contains `HTML` and `javascript`. `javascript` could be translated to `vanilla javascript` using `Babel`.
+- Browser can understand `HTML`, `CSS`, `vanilla javascript` except for `React`. So, `React` should be translated to `vanilla javascript` with `Babel`. `React-DOM` makes `HTML` connected with translated `vanilla javascript` for browser's good understanding. So, browser can display output on window tab according to connection `element of root` with `components` using `React-DOM`. `element of root` is `HTML`. `components` contains `HTML` and `javascript`. `javascript` could be translated to `vanilla javascript` using `Babel`.
+
+#### 5-3. Connection with files
+
+- In case you want to use class from other component file connecting these files, please use `return <tag></tag>;`. For example, use `return <Habit></Habit>;` within App() on `app.jsx` to use class named `Habit` from `habit.jsx`. `return <Habit></Habit>` is equal to `return <Habit />`. In case you use vecode, import should be created automatically.
+
+#### 5-4. chrome developer tool
+
+- chrome browser offers components tab which user could check structure of elements among components such as elements tab. This would help user understand relationship between components of `React`. Please install `react developer tools` and set up default browser as chrome.
 
 ### 6. Commands
+
+#### 6-1. On Terminal
 
 - ctrl + c: come back to terminal after finishing the rendering of React.
 
 - cp -R `A folder` `B foler`: creat `B folder` and copy `A folder` to `B folder`.
 
-### 6. Resolution of failures
+#### 6-2. On visual studio code
 
-#### 6-1.
+- rcc + Tab: basic component structure is created if you install `Reactjs code snippets` from extension marketplace.
+
+- ctrl + p: current display could be moved to where you want with typing keyword simply.
+
+### 7. Habit Tracker
+
+#### 7-1. Concept of Habit Tracker
+
+- type habit name on input tab and then output should be displayed on window tab when entering or clicking add button. The list of habits are displayed on window tab with habit name, count, plus/minus buttons, transh icon. The counter should be changed when clicking plus/minus buttons. The one of list could be deleted when clicking trash icon. In addtion, in case you want to clean all lists, click reset all button.
+
+- <img src="./img/concept.png" width="700" height="400">
+
+#### 7-2. The one of habit tracker
+
+- Use `ReactDOM.render()` to display `<App />` on document tab with id named `root`.
+
+- In case of index.jsx,
+  `import React from 'react';`
+  `import ReactDOM from 'react-dom';`
+  `import './index.css';`
+  `import App from './app';`
+  `import reportWebVitals from './reportWebVitals';`
+  `ReactDOM.render`(
+  `<React.StrictMode>`
+  `<App />`
+  `</React.StrictMode>`,
+  `document.getElementById('root')`
+  );
+  `reportWebVitals();`
+
+- Use `return <Habit />;` within `App()` to apply `class Habit` on `app.jsx`. I used `app.css` to decorate styling of list.
+- In case of all codes, please refer `src/app.css`.
+
+- In case of app.jsx,
+  `import './app.css';`
+  `import Habit from './components/habit';`
+  `function App()` {
+  `return` (
+  `<Habit />`
+  );
+  }
+  `export default App;`
+
+- In case of habit.jsx,
+  `import React, { Component } from 'react';`
+  `import '@fortawesome/fontawesome-free/js/all.js'`
+  `class Habit extends Component` {
+  `render()` {
+  `return`(
+  `<li className="habit">`
+  `<span className="habit-name">Reading</span>`
+  `<span className="habit-count">0</span>`
+  `<button className="habit-button habit-increase">`
+  `<i className="fa-solid fa-square-plus"></i>`
+  `</button>`
+  `<button className="habit-button habit-decrease">`
+  `<i className="fa-solid fa-square-minus"></i>`
+  `</button>`
+  `<button className="habit-button habit-delete">`
+  `<i className="fa-solid fa-trash"></i>`
+  `</button>`
+  `</li>`
+  );
+  }
+  }
+  `export default Habit;`
+
+- In case of semi-output,
+
+- <img src="./img/output1.png" width="700" height="200">
+
+### 8. Resolution of failures
+
+#### 8-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -71,7 +156,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 6-2.
+#### 8-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -80,3 +165,9 @@
 - countermeasure: `yarn create react-app test1` could be divided to `yarn global add create-react-app` and `create-react-app test1`. Please type commands in sequence. And then, type `yarn start` when path of cmder moves to directory named `test1`.
 
 - <img src="./img/yarn.png" width="700" height="250">
+
+#### 8-3.
+
+- symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
+
+- countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.

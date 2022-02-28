@@ -1,6 +1,6 @@
 ### 1. Project name: Learning React
 
-### 2. Period : 3 day
+### 2. Period : 4 day
 
 ### 3. What is React
 
@@ -87,7 +87,7 @@
 
 - <img src="./img/concept.png" width="700" height="400">
 
-#### 7-2. The one of habit tracker
+#### 7-2. The one list of habit tracker
 
 - Use `ReactDOM.render()` to display `<App />` on document tab with id named `root`.
 
@@ -118,19 +118,31 @@
   }
   `export default App;`
 
+- In case you want to save any change and display that, use `state` and `setState()` according to synthetic event. `React` can not recognize changes if not used `setState()` such as `this.state.count ++;`. So, please use `this.setState({count: this.state.count + 1});`. In addition, code block {} should be covered on `count: this.state.count + 1` to display value of count.
+
 - In case of habit.jsx,
   `import React, { Component } from 'react';`
   `import '@fortawesome/fontawesome-free/js/all.js'`
   `class Habit extends Component` {
+  `state` = {
+  `count: 0`
+  };
+  `handleIncrement = () => {`
+  `this.setState({count: this.state.count + 1});`
+  };
+  `handleDecrement = () => {`
+  `const count = this.state.count - 1;`
+  `this.setState({count: count < 0 ? 0 : count});`
+  };
   `render()` {
   `return`(
   `<li className="habit">`
   `<span className="habit-name">Reading</span>`
   `<span className="habit-count">0</span>`
-  `<button className="habit-button habit-increase">`
+  `<button className="habit-button habit-increase" onClick={this.handleIncrement}>`
   `<i className="fa-solid fa-square-plus"></i>`
   `</button>`
-  `<button className="habit-button habit-decrease">`
+  `<button className="habit-button habit-decrease" onClick={this.handleDecrement}>`
   `<i className="fa-solid fa-square-minus"></i>`
   `</button>`
   `<button className="habit-button habit-delete">`
@@ -144,7 +156,7 @@
 
 - In case of semi-output,
 
-- <img src="./img/output1.png" width="700" height="200">
+- <img src="./img/output1.gif" width="700" height="200">
 
 ### 8. Resolution of failures
 

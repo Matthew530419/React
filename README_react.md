@@ -83,7 +83,7 @@
 
 #### 7-1. Concept of Habit Tracker
 
-- type habit name on input tab and then output should be displayed on window tab when entering or clicking add button. The list of habits are displayed on window tab with habit name, count, plus/minus buttons, transh icon. The counter should be changed when clicking plus/minus buttons. The one of list could be deleted when clicking trash icon. In addtion, in case you want to clean all lists, click reset all button.
+- Type habit name on input tab and then output should be displayed on window tab when entering or clicking add button. The list of habits are displayed on window tab with habit name, count, plus/minus buttons, transh icon. The counter should be changed when clicking plus/minus buttons. The one of list could be deleted when clicking trash icon. In addtion, in case you want to clean all lists, click reset all button.
 
 - <img src="./img/concept.png" width="700" height="400">
 
@@ -158,6 +158,121 @@
 
 - <img src="./img/output1.gif" width="700" height="200">
 
+#### 7-3. The list of habits tracker
+
+#### 7-3-1. State and props
+
+- In case you want to get output using `Habit class` within render of `Habits class` and want to use `state` within `Habits class`, please use `props` within `Habit class`. The use of not only `state` but also `props` depends on the situation. First, please use `state` to set up inputs within current class. Second, please use `props` to set up inputs from other class and outside current class. For example, configuring keys and values on `state` in `Habits class`, in case of using the keys and values within render in `Habit class`, please use `const { name, count } = this.props.habit;` within render in `Habit class`. And then, `<Habit habit={habit} />` within render in `Habits class`. In this case, `Habit class` returns output to `Habits class` according to callback. And then, `Habits class` should return the output to browser to display the output correctly on window tab. In addition, `React` recommends to use `id` per key when using list type of input such as array. The warning message would display on console tab if not used `id`.
+
+- In case of habits.jsx,
+  `import React, { Component } from 'react';`
+  `import Habit from './habit';`
+  `class Habits extends Component` {
+  `state = {`
+  `habits: [`
+  `{id: 1, name: 'Reading', count: 0},`
+  `{id: 2, name: 'Running', count: 0},`
+  `{id: 3, name: 'coding', count: 0}`
+  ],
+  };
+  `render() {`
+  `return (`
+  `<ul>`
+  `{this.state.habits.map(habit => (`
+  `<Habit key={habit.id} habit={habit} />`
+  ))}
+  `</ul>`
+  );
+  }
+  }
+  `export default Habits;`
+
+- In case of habit.jsx,
+  `import React, { Component } from 'react';`
+  `class Habit extends Component` {
+  `render()` {
+  `const { name, count } = this.props.habit;`
+  `return(`
+  `<li className="habit">`
+  `<span className="habit-name">{name}</span>`
+  `<span className="habit-count">{count}</span>`
+  `<button className="habit-button habit-increase" onClick={this.handleIncrement}>`
+  `<i className="fa-solid fa-square-plus"></i>`
+  `</button>`
+  `<button className="habit-button habit-decrease" onClick={this.handleDecrement}>`
+  `<i className="fa-solid fa-square-minus"></i>`
+  `</button>`
+  `<button className="habit-button habit-delete" onClick={this.handleDelete}>`
+  `<i className="fa-solid fa-trash"></i>`
+  `</button>`
+  `</li>`
+  );
+  }
+  }
+  `export default Habit;`
+
+#### 7-3-2. Processing datas
+
+- Class should prcess the datas within the class itself generally instead of processing the datas on the class. In addition, use other class as roll of coponent offering only callback to display correct output with `React` if it needed.
+
+- `<Habit onIncrement={this.handleIncrement} onDecrement={this.handleDecrement} onDelte={this.handleDelete} />` means to use `onIncrement`, `onDecrement`, `onDelete` as `props` of `Habit class`. Inputs should be applied as props to use functions of `Habits class` on `Habit class`. For example, in case you want to use keys and values of handleIncrement of Habits class using `<Habit onIncrement={this.handleIncrement} />`, `handleIncrement = () => {this.props.onIncrement(this.props.habit)};` should be applied to within `Habit class` according to callback. `this.props.onIncrement` means to use onIncrement as props. `this.props.habit` means to use habit as parameter of onIncrement.
+
+- In case of `this.setState({habits: habits});` on `Habits class`, forward of habits means key of const habits per event. Backward of habits means value of const habits per event. this.setState({habits}) is equal when same name between key and value of const habits per event.
+
+- In case of habits.jsx,
+  `class Habits extends Component` {
+  `handleIncrement = (habit) => {`
+  `const habits = [...this.state.habits];`
+  `const index = habits.indexOf(habit);`
+  `habits[index].count++;`
+  `this.setState({habits: habits});`
+  `//habit.count++;`
+  `//this.setState(this.state);`
+  };
+  `handleDecrement = (habit) => {`
+  `const habits = [...this.state.habits];`
+  `const index = habits.indexOf(habit);`
+  `const count = habits[index].count -1;`
+  `habits[index].count = count < 0 ? 0 : count;`
+  `this.setState({habits});`
+  };
+  `handleDelete = (habit) => {`
+  `const habits = this.state.habits.filter(item => item.id !== habit.id);`
+  `this.setState({habits});`
+  };
+  `render()` {
+  `return` (
+  `<ul>`
+  `{this.state.habits.map(habit => (`
+  `<Habit`
+  `onIncrement={this.handleIncrement}`
+  `onDecrement={this.handleDecrement}`
+  `onDelete={this.handleDelete} />`
+  ))}
+  `</ul>`
+  );
+  }
+  }
+  `export default Habits;`
+
+- In case of habit.jsx,
+  `class Habit extends Component` {
+  `handleIncrement = () => {`
+  `this.props.onIncrement(this.props.habit);`
+  };
+  `handleDecrement = () => {`
+  `this.props.onDecrement(this.props.habit);`
+  };
+  `handleDelete = () => {`
+  `this.props.onDelete(this.props.habit);`
+  };
+  }
+  `export default Habit;`
+
+- In case of semi-output,
+
+- <img src="./img/output2.gif" width="700" height="200">
+
 ### 8. Resolution of failures
 
 #### 8-1.
@@ -183,3 +298,19 @@
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
+
+#### 8-4.
+
+- symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
+
+- <img src="./img/error3.png" width="700" height="250">
+
+- countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
+
+#### 8-5.
+
+- symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
+
+- <img src="./img/error4.png" width="700" height="250">
+
+- countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.

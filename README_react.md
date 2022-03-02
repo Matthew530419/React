@@ -317,7 +317,7 @@
 
 #### 8-6.
 
-- symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
+- symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 
 - <img src="./img/error5.png" width="700" height="400">
 

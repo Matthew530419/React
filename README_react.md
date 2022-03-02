@@ -314,3 +314,11 @@
 - <img src="./img/error4.png" width="700" height="250">
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
+
+#### 8-6.
+
+- symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
+
+- <img src="./img/error5.png" width="700" height="400">
+
+- countermeasure: use `render(){return(this.props.habits.map(habit => (<Habit />)))}` instead of `this.state.habits.map`.

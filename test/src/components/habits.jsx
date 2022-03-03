@@ -18,7 +18,7 @@ class Habits extends Component {
     render() {
         return (
             <ul>
-                {this.state.habits.map(habit => (
+                {this.props.habits.map(habit => (
                     <Habit 
                     key={habit.id} 
                     habit={habit}

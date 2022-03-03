@@ -273,9 +273,110 @@
 
 - <img src="./img/output2.gif" width="700" height="200">
 
-### 8. Resolution of failures
+### 8. Add Navbar
 
-#### 8-1.
+- In case you want to add navbar, you should consider more complicated the structure of components than before. The data processing should be operated on `App` component. The App component is parent component of between `navbar` and `body`. The `body` component could be parent component of `list of habits`, `input`, `reset buttons`. The one of reason why data processing should implement on App component is that counts of between navbar and body are operated with correlation. So, `App` class would use `state` and calculate with data processing. `Habits class` just has role of callback with props like `Habit class`. There is difference between `Habits class` and `Habit class`. The role of `Habits class` is to creat list of habit tracker within unorder list but the role of `Habit class` is to creat the one of list with name, count, buttons. The callback of `Habits class` is needed because `<ul>` is parent node of `<li>`.
+
+- My concept of application is to increase count of `navbar` according to amount of lists which increases count. I used filter such as onDelte. `filter` API could creat new array according to certain condition among objects of `state`.
+
+- In case of app.jsx,
+  `import React, { Component } from 'react';`
+  `import './app.css';`
+  `import Habits from './components/habits';`
+  `import Navbar from './components/navbar';`
+  `class App extends Component` {
+  `state = {`
+  `habits: [`
+  `{id: 1, name: 'Reading', count: 0},`
+  `{id: 2, name: 'Running', count: 0},`
+  `{id: 3, name: 'coding', count: 0}`
+  ],
+  };
+  `handleIncrement = (habit) => {`
+  `const habits = [...this.state.habits];`
+  `const index = habits.indexOf(habit);`
+  `habits[index].count++;`
+  `this.setState({habits: habits});`
+  };
+  `handleDecrement = (habit) => {`
+  `const habits = [...this.state.habits];`
+  `const index = habits.indexOf(habit);`
+  `const count = habits[index].count -1;`
+  `habits[index].count = count < 0 ? 0 : count;`
+  `this.setState({habits});`
+  };
+  `handleDelete = (habit) => {`
+  `const habits = this.state.habits.filter(item => item.id !== habit.id);`
+  `this.setState({habits});`
+  };
+  `render()` {
+  `return`(
+  `<>`
+  `<Navbar`
+  `totalCount={this.state.habits.filter(item => item.count > 0).length} />`
+  `<Habits`
+  `habits={this.state.habits}`
+  `onIncrement={this.handleIncrement}`
+  `onDecrement={this.handleDecrement}`
+  `onDelete={this.handleDelete} />`
+  `</>`
+  );
+  }
+  }
+  `export default App;`
+
+- In case of navbar.jsx,
+  `import React, { Component } from 'react';`
+  `class Navbar extends Component` {
+  `render()` {
+  `return` (
+  `<div className="navbar">`
+  `<i className="navbar-logo fa-solid fa-leaf"></i>`
+  `<span>Habit Tracker</span>`
+  `<span className="navbar-count">{this.props.totalCount}</span>`
+  `</div>`
+  );
+  }
+  }
+  `export default Navbar;`
+
+- In case of habits.jsx,
+  `import React, { Component } from 'react';`
+  `import Habit from './habit';`
+  `class Habits extends Component` {
+  `handleIncrement = habit => {`
+  `this.props.onIncrement(habit);`
+  };
+  `handleDecrement = habit => {`
+  `this.props.onDecrement(habit);`
+  };
+  `handleDelete = habit => {`
+  `this.props.onDelete(habit);`
+  };
+  `render()` {
+  `return` (
+  `<ul>`
+  `{this.props.habits.map(habit => (`
+  `<Habit`
+  `key={habit.id}`
+  `habit={habit}`
+  `onIncrement={this.handleIncrement}`
+  `onDecrement={this.handleDecrement}`
+  `onDelete={this.handleDelete} />`
+  ))}
+  `</ul>`
+  );
+  }
+  }
+  `export default Habits;`
+
+- In case of semi-output,
+
+- <img src="./img/output3.gif" width="700" height="250">
+
+### 9. Resolution of failures
+
+#### 9-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -283,7 +384,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 8-2.
+#### 9-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -293,13 +394,13 @@
 
 - <img src="./img/yarn.png" width="700" height="250">
 
-#### 8-3.
+#### 9-3.
 
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
 
-#### 8-4.
+#### 9-4.
 
 - symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
 
@@ -307,7 +408,7 @@
 
 - countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
 
-#### 8-5.
+#### 9-5.
 
 - symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
 
@@ -315,7 +416,7 @@
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
 
-#### 8-6.
+#### 9-6.
 
 - symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 

@@ -33,6 +33,24 @@ button {
   margin-left: 0.5rem;
 }
 
+.add-form {
+  display: flex;
+  align-items: center;
+}
+
+.add-input {
+  font-size: 2rem;
+  margin: 0.2rem;
+}
+
+.add-button {
+  height: 100%;
+  font-size: 1.5rem;
+  padding: 0.3em 0.5em;
+  background-color: green;
+  color: white;
+}
+
 .habit {
   color: white;
   font-size: 2.5rem;

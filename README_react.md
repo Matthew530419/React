@@ -374,9 +374,71 @@
 
 - <img src="./img/output3.gif" width="700" height="250">
 
-### 9. Resolution of failures
+### 9. Add Input and Reset Btn
 
-#### 9-1.
+#### 9-1. Add Input
+
+- In case you want to display data user inputs, use `inputRef = React.createRef();` to creat object which could refer other element. And then, use `ref = {this.inputRef}` for connection between object and certain element. So, data user inputs should be assigned on object named inputRef. Use `this.inputRef.current.value` to check the data. Use `this.inputRef.current.value = '';` to initialize the value after using data. The reason why we use Ref is that `React` uses DOM nodes with Ref to refer the reference rather than modifies DOM directly.
+
+- There is submit event when clicking button within `<form>`. You could get output with onSubmit. However, browser operates refresh per submit event because the browser expects display whether to be refresh or to be changed to next page. Use `event.preventDefault();` to prevent automatical refresh per submit event.
+
+- In case of habitAddform.jsx,
+  `import React, { Component } from 'react';`
+  `class HabitAddform extends Component` {
+  `inputRef = React.createRef();`
+  `onSubmit = (event) => {`
+  `event.preventDefault();`
+  `const name = this.inputRef.current.value;`
+  `name && this.props.onAdd(name);`
+  `this.inputRef.current.value = '';`
+  }
+  `render()` {
+  `return` (
+  `<form className="add-form" onSubmit={this.onSubmit}>`
+  `<input`
+  `ref={this.inputRef}`
+  `type="text"`
+  `className="add-input"`
+  `placeholder="Habit" />`
+  `<button className="add-button">Add</button>`
+  `</form>`
+  );
+  }
+  }
+  `export default HabitAddform;`
+
+- In case of habits.jsx,
+  `import HabitAddform from './habitAddform';`
+  `class Habits extends Component {`
+  `handleAdd = name => {`
+  `this.props.onAdd(name);`
+  }
+  `render()` {
+  `return` (
+  `<>`
+  `<HabitAddform onAdd={this.handleAdd} />`
+  `</>`
+
+- In case of app.jsx,
+  `class App extends Component {`
+  `handleAdd = (name) => {`
+  `const habits = [...this.state.habits, {id:Date.now(), name: name, count: 0}];`
+  `this.setState({habits});`
+  }
+  `render()` {
+  `return` (
+  `<Habits`
+  `onAdd={this.handleAdd} />`
+  )
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output4.gif" width="700" height="300">
+
+### 10. Resolution of failures
+
+#### 10-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -384,7 +446,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 9-2.
+#### 10-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -394,13 +456,13 @@
 
 - <img src="./img/yarn.png" width="700" height="250">
 
-#### 9-3.
+#### 10-3.
 
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
 
-#### 9-4.
+#### 10-4.
 
 - symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
 
@@ -408,7 +470,7 @@
 
 - countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
 
-#### 9-5.
+#### 10-5.
 
 - symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
 
@@ -416,7 +478,7 @@
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
 
-#### 9-6.
+#### 10-6.
 
 - symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 

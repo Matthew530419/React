@@ -1,6 +1,6 @@
 ### 1. Project name: Learning React
 
-### 2. Period : 4 day
+### 2. Period : 5 day
 
 ### 3. What is React
 
@@ -435,6 +435,44 @@
 - In case of semi-output,
 
 - <img src="./img/output4.gif" width="700" height="300">
+
+#### 9-2. Add Reset Btn
+
+- In case of using this function only on applied component such as `Habits class`, you could use tag within render of `Habits class` rather than creat other component. In case of `handleReset()`, `button tag` is defined within render of `Habits class`. Because the `button tag` is only used on `Habits class` such as `static function of javascript`, `handleReset()` does not need parameter on `app.jsx`. In case of `handleIncrement()`, `handleAdd()`, inputs are inserted from other components such as `Habit class`, `HabitAddform class`. So, `handleIncrement()`, `handleAdd()` need parameter such as habit, name on `app.jsx`.
+
+- In case of habits.jsx,
+  `class Habits extends Component {`
+  `render()` {
+  `return` (
+  `<>`
+  `<button className="habits-reset" onClick={this.props.onReset}>Reset All</button>`
+  `</>`
+  );
+  }
+  }
+
+- In case of app.jsx,
+  `class App extends Component {`
+  `handleReset = () => {`
+  `const habits = this.state.habits.map(habit => {`
+  `habit.count = 0;`
+  `return habit;`
+  })
+  `this.setState({habits});`
+  };
+  `render()` {
+  `return` (
+  `<>`
+  `<Habits`
+  `onReset={this.handleReset} />`
+  `</>`
+  );
+  }
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output5.gif" width="700" height="300">
 
 ### 10. Resolution of failures
 

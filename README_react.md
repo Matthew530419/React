@@ -14,7 +14,7 @@
 
 - `React` is compatible with previous version when it has new revision. Since huge community was already formed, `React` has updated well-arranged documents continueously. There is possibility that other developers already solved the problem and shared their solution when you face the problem. In addtion, the developer could creat a variety of applications with `React`. In case of using `React`, web application could be created. In case of `React Native`, mobile application could be created. In case of using `React` and `Electron`, desktop application could be created.
 
-- Components have `state()` and `render()`. `state()` contains objects of data. `render()` defines how to display somethings to user. Classified components should be reused and independent. The components of `React` has virtual DOM Tree. In case some of child components are called by `render()` because current component has changes, `React` compares between virtual DOM Tree on his own and previous DOM Tree on browser at first and updates necessary changes at DOM Tree on browser. So, speed of operating application is not slow even though many components are called on virtual DOM Tree.
+- Components have `state()` and `render()`. `state()` contains objects of data. `render()` defines how to display somethings to user. Classified components should be reused and independent. The components of `React` has virtual DOM Tree. In case some of child components are called by `render()` because current component has changes, `React` compares between virtual DOM Tree on his own and current DOM Tree on browser at first and updates necessary changes at DOM Tree on browser. So, speed of operating application is not slow even though many components are called on virtual DOM Tree. However, in case data should be updated on certain condition and continuous re-rendering does not need, if you use Component, unnecessary flashing screen maybe occur. So, it would be better to use purecomponent rather than component for optimized memory and preventing malfunction.
 
 - <img src="./img/react.png" width="700" height="400">
   <img src="./img/dom.png" width="700" height="400">
@@ -470,13 +470,36 @@
   }
   }
 
-- In case of semi-output,
+- In case of output,
 
 - <img src="./img/output5.gif" width="700" height="300">
 
-### 10. Resolution of failures
+### 10. Purecomponent to prevent unnecessary malfunction
 
-#### 10-1.
+- `React` updates virtual DOM per render at first and necessary somethings would be updated on DOM of browser after comparison between updated virtual DOM and current DOM of browser. However, in case of adding list of input and continuous re-rendering does not need when clicking plus/minus count button, use `PureComponent`. So, in case continous re-rendering does not need, it would be better to use `PureComponent` rather than `Component` for optimized memory a little bit and preventing malfunction different from developer intends.
+
+- `PureComponent` implements `shouldComponentUpdate()`, not `Component`. `shouldComponentUpdate()` means to check whether or not component should be updated. In case top level data is changed on state and props, render would be called. However, in case under level data is changed on state and props, render would not be called according to shallow comparison.
+
+- `Chrome` has highlight function regarding updates when components render. Please check the checking box like picture below.
+
+- <img src="./img/checkbox.gif" width="700" height="200">
+
+- In case of using components,
+
+- <img src="./img/render.gif" width="700" height="200">
+
+- In case of using purecomponents,
+
+- <img src="./img/render.gif" width="700" height="200">
+
+- In case only `Habit class` defined `PureComponent`, each of habit list is not changed when clicking increase count button.
+  `Habit class` can not call render because span tag of count is changed within habits and habits object is not changed when clicking plus count button. habits is top level data. The span tag of count is under level data. `React` determines there is not necessary update according to shallow comparison of virtual DOM.
+
+- <img src="./img/render2.gif" width="700" height="200">
+
+### 11. Resolution of failures
+
+#### 11-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -484,7 +507,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 10-2.
+#### 11-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -494,13 +517,13 @@
 
 - <img src="./img/yarn.png" width="700" height="250">
 
-#### 10-3.
+#### 11-3.
 
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
 
-#### 10-4.
+#### 11-4.
 
 - symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
 
@@ -508,7 +531,7 @@
 
 - countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
 
-#### 10-5.
+#### 11-5.
 
 - symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
 
@@ -516,7 +539,7 @@
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
 
-#### 10-6.
+#### 11-6.
 
 - symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 

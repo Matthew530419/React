@@ -488,14 +488,78 @@
 
 - <img src="./img/render.gif" width="700" height="200">
 
-- In case of using purecomponents,
+#### 10-1. PureComponent with under level data
 
-- <img src="./img/render.gif" width="700" height="200">
+- The components implement with under level data independently regarding count. Use `const { count } = this.props.habit;` within render of `Habit class` to creat variable. Use `<Habit count = {habit.count} />` within render of `Habits class` to use input as count of `Habit class`.
+
+- In case of habits.jsx,
+  `class Habits extends Component {`
+  `render()` {
+  `return` (
+  `<>`
+  `<ul>`
+  `{this.props.habits.map(habit => (`
+  `<Habit`
+  `count={habit.count} />`
+  ))}
+  `</ul>`
+  `</>`
+  );
+  }
+  }
+
+- In case of habit.jsx,
+  `import React, { PureComponent } from 'react';`
+  `class Habit extends PureComponent {`
+  `render()` {
+  `const { count } = this.props.habit;`
+  }
+  }
+
+- In case of semi-output,
+
+- <img src="./img/render2.gif" width="700" height="200">
+
+#### 10-2. PureComponent with top level data
+
+- Component could know how to implement data of object through UI as defined within render. Only `PureComponent` is declared on `Habit class`, `Habits class`.
+
+- In case concurrency occurs on multi-thread condition, it would be better to creat object rather than data is changed on child component directly. Use `this.state.habits.map` on handleIncrement to creat new array with all element within habits object of state on `App class`. If matched id, use `{...habit, count: habit.count + 1}` to creat new object and copy from habit objects and to overwrite count among keys.
+
+- In app.jsx,
+  `import React, { PureComponent } from 'react';`
+  `class App extends PureComponent {`
+  `handleIncrement = (habit) => {`
+  `const habits = this.state.habits.map(item => {`
+  `if(item.id === habit.id) {`
+  `return {...habit, count: habit.count + 1};`
+  } `else {`
+  `return item;`
+  }
+  });
+  `this.setState({habits});`
+  `handleDecrement = (habit) => {`
+  `const habits = this.state.habits.map(item => {`
+  `if(item.id === habit.id) {`
+  `const count = habit.count - 1;`
+  `return {...habit, count: count < 0 ? 0 : count};`
+  } `else {`
+  `return item;`
+  }
+  });
+  `this.setState({habits});`
+  }
+
+- In case of semi-output,
+
+- <img src="./img/render3.gif" width="700" height="200">
+
+#### 10-3. Miss use PureComponent
 
 - In case only `Habit class` defined `PureComponent`, each of habit list is not changed when clicking increase count button.
   `Habit class` can not call render because span tag of count is changed within habits and habits object is not changed when clicking plus count button. habits is top level data. The span tag of count is under level data. `React` determines there is not necessary update according to shallow comparison of virtual DOM.
 
-- <img src="./img/render2.gif" width="700" height="200">
+- <img src="./img/render4.gif" width="700" height="200">
 
 ### 11. Resolution of failures
 

@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Habit from './habit';
 import HabitAddform from './habitAddform';
 
-class Habits extends PureComponent {
-    
+class Habits extends Component {
+
     handleIncrement = habit => {
         this.props.onIncrement(habit);
     };
@@ -21,6 +21,7 @@ class Habits extends PureComponent {
     }
 
     render() {
+        //console.log('habits');
         return (
             <>
             <HabitAddform onAdd={this.handleAdd} />

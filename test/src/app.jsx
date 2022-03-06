@@ -61,13 +61,14 @@ handleReset = () => {
         if(habit.count !== 0){
             return {...habit, count: 0};
         } else {
-            return habits;
+            return habit;
         }
     });
     this.setState({habits});
 };
 
   render() {
+    //console.log('app');
     return (
         <>
         <Navbar 

@@ -77,7 +77,11 @@
 
 - rcc + Tab: basic component structure is created if you install `Reactjs code snippets` from extension marketplace.
 
+- rsi + Tab: basic function structure is created if you install `Reactjs code snippets` from extension marketplace.
+
 - ctrl + p: current display could be moved to where you want with typing keyword simply.
+
+- ctrl + d: multiple select could be implemented with same content.
 
 ### 7. Habit Tracker
 
@@ -522,9 +526,9 @@
 
 ##### 7-6-2. PureComponent with top level data
 
-- Component could know how to implement data of object through UI as defined within render. Only `PureComponent` is declared on `Habit class`, `Habits class`.
+- Component could know how to implement data of object through UI as defined within render. Only `PureComponent` is declared on `Habit class`.
 
-- In case concurrency occurs on multi-thread condition, it would be better to creat object rather than data is changed on child component directly. Use `this.state.habits.map` on handleIncrement to creat new array with all element within habits object of state on `App class`. If matched id, use `{...habit, count: habit.count + 1}` to creat new object and copy from habit objects and to overwrite count among keys.
+- In case concurrency occurs on multi-thread condition, it would be better to creat object rather than data is changed on child component directly. Use `this.state.habits.map` on handleIncrement to creat new array with all element within habits object of state on `App class`. If matched id, use `{...habit, count: habit.count + 1}` to creat new object and copy from habit objects and to overwrite count among keys of habit object.
 
 - In app.jsx,
   `import React, { PureComponent } from 'react';`
@@ -590,6 +594,40 @@
 - In case of semi-output,
 
 - <img src="./img/output6.gif" width="700" height="300">
+
+#### 7-8. memo
+
+- Use memo of function as same as PureComponent of class to update virtual DOM on certain condition not including re-rendering.
+
+- In case of habitAddform.jsx,
+  `import React, { memo } from 'react';`
+  `const HabitAddform = memo((props) => {`
+  `const inputRef = React.createRef();`
+  `const onSubmit = (event) => {`
+  `event.preventDefault();`
+  `const name = inputRef.current.value;`
+  `name && props.onAdd(name);`
+  `inputRef.current.value = '';`
+  `console.log('habitAddform');`
+  };
+  `console.log('habitAddform');`
+  `return` (
+  `<form`
+  `className="add-form" onSubmit={onSubmit}>`
+  `<input`
+  `ref={inputRef}`
+  `type="text"`
+  `className="add-input"`
+  `placeholder="Habit" />`
+  `<button className="add-button">Add</button>`
+  `</form>`
+  );
+  });
+  `export default HabitAddform;`
+
+- In case of semi-output,
+
+- <img src="./img/output7.gif" width="700" height="250">
 
 ### 8. Resolution of failures
 

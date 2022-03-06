@@ -14,7 +14,7 @@
 
 - `React` is compatible with previous version when it has new revision. Since huge community was already formed, `React` has updated well-arranged documents continueously. There is possibility that other developers already solved the problem and shared their solution when you face the problem. In addtion, the developer could creat a variety of applications with `React`. In case of using `React`, web application could be created. In case of `React Native`, mobile application could be created. In case of using `React` and `Electron`, desktop application could be created.
 
-- Components have `state()` and `render()`. `state()` contains objects of data. `render()` defines how to display somethings to user. Classified components should be reused and independent. The components of `React` has virtual DOM Tree. In case some of child components are called by `render()` because current component has changes, `React` compares between virtual DOM Tree on his own and current DOM Tree on browser at first and updates necessary changes at DOM Tree on browser. So, speed of operating application is not slow even though many components are called on virtual DOM Tree. However, in case data should be updated on certain condition and continuous re-rendering does not need, if you use Component, unnecessary flashing screen maybe occur. So, it would be better to use purecomponent rather than component for optimized memory and preventing malfunction.
+- Components have `state()` and `render()`. `state()` contains objects of data. `render()` defines how to display somethings to user. Classified components should be reused and independent. The components of `React` has virtual DOM Tree. In case some of child components are called by `render()` because current component has changes, `React` compares between virtual DOM Tree on his own and current DOM Tree on browser at first and updates necessary changes at DOM Tree on browser. So, speed of operating application is not slow even though many components are called on virtual DOM Tree. However, in case data should be updated on certain condition and continuous re-rendering does not need, if you use Component, unnecessary flashing screen maybe occur. So, it would be better to use purecomponent rather than component for optimized memory and preventing malfunction. In addition, `React` calls correct function automatically on each of condition after each of lifecycle functions is configured. For example, use `componentDidMount()` if you function implements when registered component. Use `componentWillUnmount()` if you function implements when canceled component.
 
 - <img src="./img/react.png" width="700" height="400">
   <img src="./img/dom.png" width="700" height="400">
@@ -160,7 +160,7 @@
 
 #### 7-3. The list of habits tracker
 
-#### 7-3-1. State and props
+##### 7-3-1. State and props
 
 - In case you want to get output using `Habit class` within render of `Habits class` and want to use `state` within `Habits class`, please use `props` within `Habit class`. The use of not only `state` but also `props` depends on the situation. First, please use `state` to set up inputs within current class. Second, please use `props` to set up inputs from other class and outside current class. For example, configuring keys and values on `state` in `Habits class`, in case of using the keys and values within render in `Habit class`, please use `const { name, count } = this.props.habit;` within render in `Habit class`. And then, `<Habit habit={habit} />` within render in `Habits class`. In this case, `Habit class` returns output to `Habits class` according to callback. And then, `Habits class` should return the output to browser to display the output correctly on window tab. In addition, `React` recommends to use `id` per key when using list type of input such as array. The warning message would display on console tab if not used `id`.
 
@@ -211,11 +211,11 @@
   }
   `export default Habit;`
 
-#### 7-3-2. Processing datas
+##### 7-3-2. Processing datas
 
-- Class should prcess the datas within the class itself generally instead of processing the datas on the class. In addition, use other class as roll of coponent offering only callback to display correct output with `React` if it needed.
+- Class should process the datas with state within the class itself generally instead of processing the datas on other class. In addition, use other class with props as role of component offering only callback to display correct output with `React` if it needed. Data flows down generally. The component could pass its state down as props to its child component.
 
-- `<Habit onIncrement={this.handleIncrement} onDecrement={this.handleDecrement} onDelte={this.handleDelete} />` means to use `onIncrement`, `onDecrement`, `onDelete` as `props` of `Habit class`. Inputs should be applied as props to use functions of `Habits class` on `Habit class`. For example, in case you want to use keys and values of handleIncrement of Habits class using `<Habit onIncrement={this.handleIncrement} />`, `handleIncrement = () => {this.props.onIncrement(this.props.habit)};` should be applied to within `Habit class` according to callback. `this.props.onIncrement` means to use onIncrement as props. `this.props.habit` means to use habit as parameter of onIncrement.
+- `<Habit onIncrement={this.handleIncrement} onDecrement={this.handleDecrement} onDelte={this.handleDelete} />` means to use `onIncrement`, `onDecrement`, `onDelete` as `props` of `Habit class`. handleIncrement, handleDecrement, handleDelete would be implemented with state of `Habits class` at first. Inputs of `Habit class` should be applied with props to use objects of `Habits class` on `Habit class`. For example, in case you want to use keys and values of handleIncrement of `Habits class` using `<Habit onIncrement={this.handleIncrement} />`, use `handleIncrement = () => {this.props.onIncrement(this.props.habit)};` within `Habit class` according to callback. `this.props.onIncrement` means to use onIncrement as props. `this.props.habit` means to use habit as parameter of onIncrement.
 
 - In case of `this.setState({habits: habits});` on `Habits class`, forward of habits means key of const habits per event. Backward of habits means value of const habits per event. this.setState({habits}) is equal when same name between key and value of const habits per event.
 
@@ -273,7 +273,7 @@
 
 - <img src="./img/output2.gif" width="700" height="200">
 
-### 8. Add Navbar
+#### 7-4. Add Navbar
 
 - In case you want to add navbar, you should consider more complicated the structure of components than before. The data processing should be operated on `App` component. The App component is parent component of between `navbar` and `body`. The `body` component could be parent component of `list of habits`, `input`, `reset buttons`. The one of reason why data processing should implement on App component is that counts of between navbar and body are operated with correlation. So, `App` class would use `state` and calculate with data processing. `Habits class` just has role of callback with props like `Habit class`. There is difference between `Habits class` and `Habit class`. The role of `Habits class` is to creat list of habit tracker within unorder list but the role of `Habit class` is to creat the one of list with name, count, buttons. The callback of `Habits class` is needed because `<ul>` is parent node of `<li>`.
 
@@ -374,9 +374,9 @@
 
 - <img src="./img/output3.gif" width="700" height="250">
 
-### 9. Add Input and Reset Btn
+#### 7-5. Add Input and Reset Btn
 
-#### 9-1. Add Input
+##### 7-5-1. Add Input
 
 - In case you want to display data user inputs, use `inputRef = React.createRef();` to creat object which could refer other element. And then, use `ref = {this.inputRef}` for connection between object and certain element. So, data user inputs should be assigned on object named inputRef. Use `this.inputRef.current.value` to check the data. Use `this.inputRef.current.value = '';` to initialize the value after using data. The reason why we use Ref is that `React` uses DOM nodes with Ref to refer the reference rather than modifies DOM directly.
 
@@ -436,7 +436,7 @@
 
 - <img src="./img/output4.gif" width="700" height="300">
 
-#### 9-2. Add Reset Btn
+##### 7-5-2. Add Reset Btn
 
 - In case of using this function only on applied component such as `Habits class`, you could use tag within render of `Habits class` rather than creat other component. In case of `handleReset()`, `button tag` is defined within render of `Habits class`. Because the `button tag` is only used on `Habits class` such as `static function of javascript`, `handleReset()` does not need parameter on `app.jsx`. In case of `handleIncrement()`, `handleAdd()`, inputs are inserted from other components such as `Habit class`, `HabitAddform class`. So, `handleIncrement()`, `handleAdd()` need parameter such as habit, name on `app.jsx`.
 
@@ -474,7 +474,7 @@
 
 - <img src="./img/output5.gif" width="700" height="300">
 
-### 10. Purecomponent to prevent unnecessary malfunction
+#### 7-6. Purecomponent to prevent unnecessary malfunction
 
 - `React` updates virtual DOM per render at first and necessary somethings would be updated on DOM of browser after comparison between updated virtual DOM and current DOM of browser. However, in case of adding list of input and continuous re-rendering does not need when clicking plus/minus count button, use `PureComponent`. So, in case continous re-rendering does not need, it would be better to use `PureComponent` rather than `Component` for optimized memory a little bit and preventing malfunction different from developer intends.
 
@@ -488,7 +488,7 @@
 
 - <img src="./img/render.gif" width="700" height="200">
 
-#### 10-1. PureComponent with under level data
+##### 7-6-1. PureComponent with under level data
 
 - The components implement with under level data independently regarding count. Use `const { count } = this.props.habit;` within render of `Habit class` to creat variable. Use `<Habit count = {habit.count} />` within render of `Habits class` to use input as count of `Habit class`.
 
@@ -520,7 +520,7 @@
 
 - <img src="./img/render2.gif" width="700" height="200">
 
-#### 10-2. PureComponent with top level data
+##### 7-6-2. PureComponent with top level data
 
 - Component could know how to implement data of object through UI as defined within render. Only `PureComponent` is declared on `Habit class`, `Habits class`.
 
@@ -566,16 +566,34 @@
 
 - <img src="./img/render3.gif" width="700" height="200">
 
-#### 10-3. Miss use PureComponent
+##### 7-6-3. Miss use PureComponent
 
 - In case only `Habit class` defined `PureComponent`, each of habit list is not changed when clicking increase count button.
   `Habit class` can not call render because span tag of count is changed within habits and habits object is not changed when clicking plus count button. habits is top level data. The span tag of count is under level data. `React` determines there is not necessary update according to shallow comparison of virtual DOM.
 
 - <img src="./img/render4.gif" width="700" height="200">
 
-### 11. Resolution of failures
+#### 7-7. Lifecycle function
 
-#### 11-1.
+- `React` could call correct function automatically on each of condition after each of lifecycle functions is configured. Use `componentDidMount()` to implement function when habit is added on `Habit class`. Use `componentWillUnmount()` to implement function when habit is canceled on `Habit class`.
+
+- In case of habit.jsx,
+  `class Habit extends PureComponent {`
+  `componentDidMount() {`
+  `console.log(`habit: ${this.props.habit.name} mounted`);`
+  }
+  `componentWillUnmount() {`
+  `console.log(`habit: ${this.props.habit.name} unmounted`);`
+  }
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output6.gif" width="700" height="200">
+
+### 8. Resolution of failures
+
+#### 8-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -583,7 +601,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 11-2.
+#### 8-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -593,13 +611,13 @@
 
 - <img src="./img/yarn.png" width="700" height="250">
 
-#### 11-3.
+#### 8-3.
 
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
 
-#### 11-4.
+#### 8-4.
 
 - symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
 
@@ -607,7 +625,7 @@
 
 - countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
 
-#### 11-5.
+#### 8-5.
 
 - symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
 
@@ -615,7 +633,7 @@
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
 
-#### 11-6.
+#### 8-6.
 
 - symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 
@@ -623,7 +641,7 @@
 
 - countermeasure: use `render(){return(this.props.habits.map(habit => (<Habit />)))}` instead of `this.state.habits.map`.
 
-#### 11-7.
+#### 8-7.
 
 - symptom: ReferenceError message occurred on console tab such as `Cannot access 'habits' before initialization` when return habits instead of return habit within `handleReset` on `app.jsx`. The whole habit objects are checked and implemented with `this.state.habits.map`. However, habits suddenly returned during `map`. So, habits and this.state.habits.map are concurrency and habits can not access.
 

@@ -589,7 +589,7 @@
 
 - In case of semi-output,
 
-- <img src="./img/output6.gif" width="700" height="200">
+- <img src="./img/output6.gif" width="700" height="300">
 
 ### 8. Resolution of failures
 

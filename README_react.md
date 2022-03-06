@@ -1,6 +1,6 @@
 ### 1. Project name: Learning React
 
-### 2. Period : 5 day
+### 2. Period : 1 week
 
 ### 3. What is React
 
@@ -538,6 +538,7 @@
   }
   });
   `this.setState({habits});`
+  };
   `handleDecrement = (habit) => {`
   `const habits = this.state.habits.map(item => {`
   `if(item.id === habit.id) {`
@@ -548,6 +549,17 @@
   }
   });
   `this.setState({habits});`
+  };
+  `handleReset = () => {`
+  `const habits = this.state.habits.map(habit => {`
+  `if(habit.count !== 0) {`
+  `return {...habit, count: 0};`
+  } `else {`
+  `return habit;`
+  }
+  });
+  `this.setState({habits});`
+  };
   }
 
 - In case of semi-output,
@@ -610,3 +622,11 @@
 - <img src="./img/error5.png" width="700" height="400">
 
 - countermeasure: use `render(){return(this.props.habits.map(habit => (<Habit />)))}` instead of `this.state.habits.map`.
+
+#### 11-7.
+
+- symptom: ReferenceError message occurred on console tab such as `Cannot access 'habits' before initialization` when return habits instead of return habit within `handleReset` on `app.jsx`. The whole habit objects are checked and implemented with `this.state.habits.map`. However, habits suddenly returned during `map`. So, habits and this.state.habits.map are concurrency and habits can not access.
+
+- <img src="./img/error6.gif" width="700" height="250">
+
+- countermeasure: please use return habit within `const habits = this.state.habits.map(habit => {});`.

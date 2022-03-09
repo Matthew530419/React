@@ -43,6 +43,14 @@
 
 - To apply fontawesome to `React`, library should be installed on local. In case of `npm`, use `npm install --save @fortawesome/fontawesome-free`. In case of `yarn`, use `yarn add @fortawesome/fontawesome-free`. And then, add import on `index.jsx`. In case of between `npm` and `yarn`, use `import '@fortawesome/fontawesome-free/js/all.js'`.
 
+#### 4-3. Postman
+
+- Postman is program that creats and collect REST APIs to use these APIs when you need. REST API means a protocol which defines methods of communication between front-end and back-end. The methods could be classified as 4. `Get` is used to get user data that was already created before. `Post` is used to creat new user data. `Put` is used to update user data that was already existed. `Delete` is used to delete existed user data.
+
+- Collection should be created on menu named collection within workspace. You can set variables on the collection. And then, add request to choose the one of these APIs when you need. Configured variable could be used on URL of request. For example, `base` is configured as https://youtube.googleapis.com/youtube/v3. You can use `{{base}}` on URL of request.
+
+- <img src="./img/postman.png" width="700" height="200">
+
 ### 5. React basic
 
 #### 5-1. Difference of React

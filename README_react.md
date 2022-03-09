@@ -49,7 +49,7 @@
 
 - Collection should be created on menu named collection within workspace. You can set variables on the collection. And then, add request to choose the one of these APIs when you need. Configured variable could be used on URL of request. For example, `base` is configured as https://youtube.googleapis.com/youtube/v3. You can use `{{base}}` on URL of request.
 
-- <img src="./img/postman.png" width="700" height="200">
+- <img src="./img/postman.png" width="700" height="300">
 
 ### 5. React basic
 
@@ -637,9 +637,67 @@
 
 - <img src="./img/output7.gif" width="700" height="250">
 
-### 8. Resolution of failures
+### 8. Mattube
 
-#### 8-1.
+#### 8-1. Concept of Mattube
+
+#### 8-2. Popular list with Youtube APIs
+
+- In case of useState according to `React Hook`, `[videos, setVideos]` of `const [videos, setVideos] = useState([])` means initial value and updated function value within `[]`. The initial value could be number or 'string'. Use `[]` of `useState([])` to make initial value empty.
+
+- In case you want to call callback function when something is mounted or updated, use `useEffect`. `useEffect` is similiar with React class lifecycle methods. `[]` could be typed as second argument after callback function with comma `,` to operate useEffect only once(mount or unmount) preventing to operate useEffect per update.
+
+- Popular titles are loaded with code format of Javascript offered from postman according to Youtube API. Use `props.video.snippet.title` on `video_item.jsx` to mount title on window tab. In addition, use `props.videos.map(video => ())` on `video_list.jsx` to use video list as parameter of vidoes object.
+
+- In case of app.jsx,
+  `import { useEffect, useState } from 'react';`
+  `import './app.css';`
+  `import VideoList from './components/video_list/video_list';`
+  `function App()` {
+  `const [videos, setVideos] = useState([]);`
+  `useEffect(()=> {`
+  `const requestOptions = {`
+  `method: 'GET',`
+  `redirect: 'follow'`
+  };
+  `fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResult=25&key=AIzaSyBUFXS78JwP8FLAaipOJY7lypUwWWhWgLU", requestOptions)`
+  `.then(response => response.json())`
+  `.then(result => setVideos(result.items))`
+  `.catch(error => console.log('error', error));`
+  }`,` `[]`);
+  `return <VideoList`
+  `videos={videos} />`
+  }
+  `export default App;`
+
+- In case of video_item.jsx,
+  `import React from 'react';`
+  `const VideoItem = (props) => (`
+  `<h1>{props.video.snippet.title}</h1>`
+  );
+  `export default VideoItem;`
+
+- In case of video_list.jsx,
+  `import React from 'react';`
+  `import VideoItem from '../video_item/video_item';`
+  `const VideoList = (props) => (`
+  `<ul>`
+  `{props.videos.map(video => (`
+  `<VideoItem`
+  `key={video.id}`
+  `video={video} />`
+  ))}
+  `</ul>`
+  );
+  `export default VideoList;`
+
+- In case of semi-output,
+
+- <img src="./img/output8.png" width="700" height="250">
+
+### 9. Resolution of failures
+
+#### 9-1.
 
 - symptom: `npm create react-app test` is installed completely, but I received error message when `npm start` on incorrect path. The incorrect path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic`. The correct path is `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test` because `react-app` was installed `test` depository. `package.json` should be needed when react loading. In case of incorrect path, there is no package.json which has `scripts` of start.
 
@@ -647,7 +705,7 @@
 
 - countermeasure: type `npm start` on correct path : `C:\Users\PARK MIN KYU\Downloads\cmder\projects\git\React\basic\test`.
 
-#### 8-2.
+#### 9-2.
 
 - symptom: `yarn create react-app test1` is not installed with error `commnad failed`. `package.json` can not be created.
 
@@ -657,13 +715,13 @@
 
 - <img src="./img/yarn.png" width="700" height="250">
 
-#### 8-3.
+#### 9-3.
 
 - symptom: error message occurred such as `Module not found: Can't resolve path of library` when I deleted `reportWebVitals.js`. `reportWebVitals()` on `index.jsx` could not refer the reference of `reportWebVitals()` on reportWebVital.js.
 
 - countermeasure: restore `reportWebVital.js` on folder named `src` after exiting `React`. And then, `yarn start` once again.
 
-#### 8-4.
+#### 9-4.
 
 - symptom: error message occurred such as `Reading is not defined no-undef`. The value of key should be applied string type.
 
@@ -671,7 +729,7 @@
 
 - countermeasure: use `state = {habits: [{id:1, name: 'Reading', count:0}]}` instead of `name: Reading`.
 
-#### 8-5.
+#### 9-5.
 
 - symptom: warning message occurred such as `Each child in a list should have a unique key prop`. In case you use state as array, `React` needs id per key.
 
@@ -679,7 +737,7 @@
 
 - countermeasure: use unique id on each of objects such as `state = {habits: [{id:1, name: 'Reading', count:0}]}`. And then, use `key={habit.id}` of `<Habit key={habit.id} habit={habit} />` within render on `Habits class`.
 
-#### 8-6.
+#### 9-6.
 
 - symptom: typeError message occurred on console tab such as `Cannot read properties of null (reading: 'habits')` when `state` and `functions` are moved from `Habits class` to `App class`. In addtion, there is no output on window tab. `state` is defined on `app.jsx`. However, I used `this.state.habits.map` of `render(){return({this.state.habits.map(habit => (...) )})}` instead of `this.props.habits.map`.
 
@@ -687,7 +745,7 @@
 
 - countermeasure: use `render(){return(this.props.habits.map(habit => (<Habit />)))}` instead of `this.state.habits.map`.
 
-#### 8-7.
+#### 9-7.
 
 - symptom: ReferenceError message occurred on console tab such as `Cannot access 'habits' before initialization` when return habits instead of return habit within `handleReset` on `app.jsx`. The whole habit objects are checked and implemented with `this.state.habits.map`. However, habits suddenly returned during `map`. So, habits and this.state.habits.map are concurrency and habits can not access.
 

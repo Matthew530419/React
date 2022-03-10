@@ -849,6 +849,6 @@
 
 - <img src="./img/error7-2.png" width="700" height="300">
 
-- I would find root cause from APIs documents next time.
+- I would find root cause from APIs documents in next time at first.
 
 - <img src="./img/youtubeAPI1.png" width="700" height="200">

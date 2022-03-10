@@ -763,3 +763,9 @@
 - <img src="./img/error6.gif" width="700" height="250">
 
 - countermeasure: please use return habit within `const habits = this.state.habits.map(habit => {});`.
+
+#### 9-8.
+
+- symptom: resultPerPage value is 5 when maxResult value is 25 using postman even though resultPerPage value is 25 using Youtube API directly. So, my output of video list is 5.
+
+- countermeasure: I will check making communication with support of postman.

@@ -841,8 +841,10 @@
 
 #### 9-8.
 
-- symptom: resultPerPage value is 5 when maxResult value is 25 using postman even though resultPerPage value is 25 using Youtube API directly. So, my output of video list is 5.
+- symptom: resultPerPage value is 5 when maxResult value is 25 using postman. Youtube API offers variable as maxResults. So my output of resultPerpage value is 5 because abnormal vairable is used as maxResult.
 
-- <img src="./img/error7.png" width="700" height="300">
+- <img src="./img/error7-1.png" width="700" height="300">
 
-- countermeasure: I will check making communication with support of postman.
+- countermeasure: use maxResults instead of maxResult. In case of using maxResult value is 25, resultPerPage value is 5. In case of using maxResults value is 25, resultPerPage value is 25.
+
+- <img src="./img/error7-2.png" width="700" height="300">

@@ -706,6 +706,81 @@
 
 - <img src="./img/output8.png" width="700" height="250">
 
+#### 8-3. Deconstructing
+
+- Use `{}` code block to deconstruct props using video as input of function. For example, use `const VideoItem = ({video}) => ();` instead of `const VideoItem = (props) => ();`. In case you want additional deconstructing, use `{}` code block once again within previous code block. Use `const VideoItem = ({video: {snippet}}) => ();`.
+
+#### 8-4. Assign videos list between left and right side
+
+- `snippet.thumbnails property` is an object that upload image available for that resource from Youtube APIs. If you check child elements of props on component tab, you could find `video.snippet.thumbnails`. snippet means a piece of code. This points at one of videos list on here. In case of video_item, use `<img src={snippet.thumbnails.medium.url}>` to upload image offered from thumbnail with url. In addition, upload paragraphs of between title and channelTitle with `<p>`.
+
+- In case of video_item,
+  `const VideoItem = ({video: {snippet}}) => (`
+  `<li className={styles.container}>`
+  `<div className={styles.video}>`
+  `<img className={styles.thumbnails} src={snippet.thumbnails.medium.url} alt="video thumbnail" />`
+  `<div>`
+  `<p className={styles.title}>{snippet.title}</p>`
+  `<p className={styles.channelTitle}>{snippet.channelTitle}</p>`
+  `</div>`
+  `</div>`
+  `</li>`
+  );
+
+- The videos list should be displayed on left and right side of body tag. Because each of videos has border, in case of index.css, use `box-sizing: border-box;` to match balance of space considering any border and padding in the values I specify for element's width and height. This makes it much easier to size element. In case of video_list.module.css, use `flex-wrap: wrap;` to wrap onto multipl lines in configured area instead of forced onto one line when using `display: flex;`. In case of video_item.module.css, use `<div className={styles.video}>` to assign `padding-left: 0.2rem;` per each of video. `<div>` is used as child element of `<li className={style.container}>`.
+
+- In case of index.css,
+  `*` {
+  `box-sizing: border-box;`
+  }
+
+- In case of video_list.module.css,
+  `.videos` {
+  `display: flex;`
+  `flex-wrap: wrap;`
+  `padding: 0;`
+  }
+
+- In case of video_item.module.css,
+  `.container` {
+  `margin-top: 0.2rem;`
+  `padding: 0;`
+  `width: 50%;`
+  `list-style: none;`
+  }
+  `.video` {
+  `display: flex;`
+  `align-items: center;`
+  `border: 1px solid blue;`
+  `padding-left: 0.2rem;`
+  `transition: transform 300ms ease-in;`
+  }
+  `.video:hover` {
+  `transform: scale(1.02);`
+  }
+  `.thumbnails` {
+  `width: 40%;`
+  `height: 100%;`
+  `cursor: pointer;`
+  }
+  `.title,`
+  `.channelTitle` {
+  `margin: 0;`
+  }
+  `.title` {
+  `font-size: 1.3rem;`
+  `margin-left: 1rem;`
+  `font-weight: bold;`
+  }
+  `.channelTitle` {
+  `font-size: 1rem;`
+  `margin-left: 1rem;`
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output9.gif" width="700" height="300">
+
 ### 9. Resolution of failures
 
 #### 9-1.
@@ -767,5 +842,7 @@
 #### 9-8.
 
 - symptom: resultPerPage value is 5 when maxResult value is 25 using postman even though resultPerPage value is 25 using Youtube API directly. So, my output of video list is 5.
+
+- <img src="./img/error7.png" width="700" height="300">
 
 - countermeasure: I will check making communication with support of postman.

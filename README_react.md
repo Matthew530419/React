@@ -641,6 +641,17 @@
 
 #### 8-1. Concept of Mattube
 
+#### 8-1-1. Default page when mounted
+
+- Creat symbol and input of searching on `header tag`. In addition, videos list is made on left and right side of `body tag` respectively. I will use `React Hook`.
+
+#### 8-1-2. Page when clicking one of video list
+
+- As default page, creat symbol and input of searching on header tag. The video and description are created `on left side of body tag`. Other videos are created `on right side of body tag`.
+
+- <img src="./img/mattube1.png" width="700" height="400">
+  <img src="./img/mattube2.png" width="700" height="400">
+
 #### 8-2. Popular list with Youtube APIs
 
 - In case of useState according to `React Hook`, `[videos, setVideos]` of `const [videos, setVideos] = useState([])` means initial value and updated function value within `[]`. The initial value could be number or 'string'. Use `[]` of `useState([])` to make initial value empty.

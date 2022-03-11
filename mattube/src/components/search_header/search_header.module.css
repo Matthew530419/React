@@ -1,0 +1,36 @@
+.header {
+  background-color: black;
+  display: flex;
+  height: 5rem;
+  padding: 1rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-left: 0.5rem;
+  color: white;
+}
+
+.input {
+  height: 100%;
+  flex-basis: 100%;
+  margin-left: 0.5rem;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  outline: 0;
+}
+
+.button {
+  background-color: darkgray;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.buttonImg {
+  height: 100%;
+  padding: 0.3rem 0.2rem;
+}

@@ -1,6 +1,6 @@
 ### 1. Project name: Learning React
 
-### 2. Period : 1 week
+### 2. Period : 1 week 2 days
 
 ### 3. What is React
 
@@ -780,6 +780,76 @@
 - In case of semi-output,
 
 - <img src="./img/output9.gif" width="700" height="300">
+
+#### 8-4. Add header
+
+- Header could be divided into not only box of logo and title but also box of searching with button. `<div>` should be needed and use CSS property `display: flex;` within `.container{}` to align logo and title properly. Use `height: 5rem;` within `.header{}` to set up height of header. Use `padding: 1rem;` within `.header{}` to apply empty space on 4 direction of header. Use `height: 100%;` within `.input{}` to match height of input as much as header. Use `flex-basis: 100%;` within `.input{}` to set up width of input as much as header. However, all tags are lined up in a row because `display: flex;` is applied to within `.header{}`. The input would get rest of space in a line except for already used space by other tags. Use `height: 100%;` and `padding: 0.3rem 0.2rem;` to adjust size of image properly.
+
+- In case of app.jsx,
+  `function App()` {
+  `return` (
+  `<>`
+  `<SearchHeader />`
+  `<VideoList videos={videos} />`
+  `</>`
+  );
+  }
+
+- In case of search_header.jsx,
+  `import styles from './search_header.module.css';`
+  `import React from 'react';`
+  `const SearchHeader = (props) => {`
+  `return`(
+  `<header className={styles.header}>`
+  `<div className={styles.container}>`
+  `<img className={styles.logo} src="./logo.png" alt="logo" />`
+  `<h1 className={styles.title}>Mattube</h1>`
+  `</div>`
+  `<input className={styles.input} type="search" placeholder="Search..." />`
+  `<button className={styles.button} >`
+  `<img className={styles.buttonImg} src="./search.png" alt="search" />`
+  `</button>`
+  `</header>`
+  )
+  }
+
+- In case of search_header.module.css,
+  `.header {`
+  `background-color: black;`
+  `display: flex;`
+  `height: 5rem;`
+  `padding: 1rem;`
+  }
+  `.container` {
+  `display: flex;`
+  `align-items: center;`
+  }
+  `.title` {
+  `margin-left: 0.5rem;`
+  `color: white;`
+  }
+  `.input` {
+  `height: 100%;`
+  `flex-basis: 100%;`
+  `margin-left: 0.5rem;`
+  `font-size: 1.4rem;`
+  `padding-left: 1rem;`
+  `outline: 0;`
+  }
+  `.button` {
+  `background-color: darkgray;`
+  `cursor: pointer;`
+  `margin-left: 0.5rem;`
+  }
+  `.buttonImg` {
+  `height: 100%;`
+  `padding: 0.3rem 0.2rem;`
+  }
+  `export default SearchHeader;`
+
+- In case of semi-output,
+
+- <img src="./img/output10.png" width="700" height="300">
 
 ### 9. Resolution of failures
 

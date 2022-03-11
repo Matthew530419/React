@@ -704,7 +704,7 @@
 
 - In case of semi-output,
 
-- <img src="./img/output8.png" width="700" height="250">
+- <img src="./img/output8.gif" width="700" height="250">
 
 #### 8-3. Deconstructing
 

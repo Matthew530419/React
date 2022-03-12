@@ -785,33 +785,50 @@
 
 - Header could be divided into not only box of logo and title but also box of searching with button. `<div>` should be needed and use CSS property `display: flex;` within `.container{}` to align logo and title properly. Use `height: 5rem;` within `.header{}` to set up height of header. Use `padding: 1rem;` within `.header{}` to apply empty space on 4 direction of header. Use `height: 100%;` within `.input{}` to match height of input as much as header. Use `flex-basis: 100%;` within `.input{}` to set up width of input as much as header. However, all tags are lined up in a row because `display: flex;` is applied to within `.header{}`. The input would get rest of space in a line except for already used space by other tags. Use `height: 100%;` and `padding: 0.3rem 0.2rem;` to adjust size of image properly.
 
+- In case of `search_header.jsx`, have connection with `<input>` and `handleSeach()` using ref for browser knows `inputRef.current.value`. Use `const inputRef = useRef();`. Use props of SearchHeader as onSearch and use `onSearch(value);` within `handleSearch()` as callback function. The search would be implemented when entering bekboard or clicking button. `onKeyPress` is created as function and onKeyPress is used within `<input>`. `onClick` is also created as function and onClick is used within `<button>`.
+
 - In case of app.jsx,
   `function App()` {
-  `return` (
-  `<>`
-  `<SearchHeader />`
-  `<VideoList videos={videos} />`
-  `</>`
+  `const search = query => {`
+  `const requestOptions` = {
+  `method: 'GET',`
+  `redirect: 'follow'`
+  };
+  `fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyBUFXS78JwP8FLAaipOJY7lypUwWWhWgLU`, requestOptions)` `.then(response => response.json())` `.then(result => result.items.map(item => ({...item, id: item.id.videoId })))` `.then(items => setVideos(items))` `.catch(error => console.log('error', error));`}`return`( `<>` `<SearchHeader onSearch={search} />` `<VideoList videos={videos} />` `</>`
   );
   }
 
 - In case of search_header.jsx,
   `import styles from './search_header.module.css';`
   `import React from 'react';`
-  `const SearchHeader = (props) => {`
+  `const SearchHeader = ({onSearch}) => {`
+  `const inputRef = useRef();`
+  `const handleSearch = () => {`
+  `const value = inputRef.current.value;`
+  `onSearch(value);`
+  }
+  `const onKeyPress = (event) => {`
+  `if(event.key === 'Enter')`{
+  `handleSearch();`
+  }
+  }
+  `const onClick = () => {`
+  `handleSearch();`
+  }
   `return`(
   `<header className={styles.header}>`
   `<div className={styles.container}>`
   `<img className={styles.logo} src="./logo.png" alt="logo" />`
   `<h1 className={styles.title}>Mattube</h1>`
   `</div>`
-  `<input className={styles.input} type="search" placeholder="Search..." />`
-  `<button className={styles.button} >`
+  `<input ref={inputRef} className={styles.input} type="search" placeholder="Search..." onKeyPress={onKeyPress} />`
+  `<button className={styles.button} onClick={onClick} >`
   `<img className={styles.buttonImg} src="./search.png" alt="search" />`
   `</button>`
   `</header>`
   )
   }
+  `export default SearchHeader;`
 
 - In case of search_header.module.css,
   `.header {`
@@ -849,7 +866,7 @@
 
 - In case of semi-output,
 
-- <img src="./img/output10.png" width="700" height="300">
+- <img src="./img/output10.gif" width="700" height="350">
 
 ### 9. Resolution of failures
 
@@ -922,3 +939,11 @@
 - I would find root cause from APIs documents in next time at first.
 
 - <img src="./img/youtubeAPI1.png" width="700" height="200">
+
+#### 9-9.
+
+- symptom: Warning occurred on console tab such as `Encountered two children with the same key, [object react_devtools_backend.js:3973 Object]` when finding videos with search API. In case id is object, children element would have same key, please overwrite id only on the children element you want to use.
+
+- <img src="./img/error9.png" width="700" height="250">
+
+- countermeasure: use `.then(result => result.items.map(item => ({...item, id: item.id.videoId })))` on `app.jsx` to copy items on new object and overwrite id as videoId per each of items. And then, use `.then(items => setVideos(items))` on `app.jsx` to update videos.

@@ -9,15 +9,17 @@ function App() {
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   const search = query => {
+    
     const requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
     
-    fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyBUFXS78JwP8FLAaipOJY7lypUwWWhWgLU`, requestOptions)
+    fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyCZj1OxRQi7HhUA7A0H23CODBTwFeBAC7c`, requestOptions)
       .then(response => response.json())
-      .then(result => result.items.map(item => ({...item, id: item.id.videoId })))
+      .then(result => result.items.map(item => ({...item, id: item.id.videoId})))
       .then(items => setVideos(items))
+      .then(items => setSelectedVideo(null))
       .catch(error => console.log('error', error));
   }
 
@@ -34,6 +36,7 @@ function App() {
     fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyCZj1OxRQi7HhUA7A0H23CODBTwFeBAC7c", requestOptions)
       .then(response => response.json())
       .then(result => setVideos(result.items))
+      .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }, []);
 

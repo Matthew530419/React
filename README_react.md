@@ -981,6 +981,20 @@
 
 - <img src="./img/output11.gif" width="700" height="350">
 
+#### 8-6. Restore displayed grid when displayed list
+
+- Use `setSelectedVideo=null` within `search function` to restore from displayed list to displayed grid. use `.then(items => setVideos(items))` and `.then(items => setSelectedVideo(null))` respectively. these mean `setSelectedVideo(null)` after `setVideo(items)`.
+
+- In case of app.jsx,
+  `const search = query => {`
+  `.then(items => setVideos(items))`
+  `.then(items => setSelectedVideo(null))`
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output12.gif" width="700" height="350">
+
 ### 9. Resolution of failures
 
 #### 9-1.
@@ -1057,6 +1071,16 @@
 
 - symptom: Warning occurred on console tab such as `Encountered two children with the same key, [object react_devtools_backend.js:3973 Object]` when finding videos with search API. In case id is object, children element would have same key, please overwrite id only on the children element you want to use.
 
-- <img src="./img/error9.png" width="700" height="250">
+- <img src="./img/error8.png" width="700" height="250">
 
 - countermeasure: use `.then(result => result.items.map(item => ({...item, id: item.id.videoId })))` on `app.jsx` to copy items on new object and overwrite id as videoId per each of items. And then, use `.then(items => setVideos(items))` on `app.jsx` to update videos.
+
+#### 9-10.
+
+- symptom: Previous videolist with grid displayed and then updated videolist with grid displayed when starting with searching on `VideoDetail webpage`. I use `.then(items => setVideos(items), setSelectedVideo(null))` within search function on `app.jsx`. setSelectedVideo value should be null to display grid because I implement not only `display='list'` with `<ul>` but also `display='grid'` if `display!='list'`.
+
+- <img src="./img/error9-1.gif" width="700" height="300">
+
+- countermeasure: use `.then(items => setVideos(items))` and `.then(items => setSelectedVideo(null))` respectively. these mean `setSelectedVideo(null)` after `setVideo(items)`.
+
+- <img src="./img/error9-2.gif" width="700" height="300">

@@ -1,8 +1,15 @@
 .container {
   margin-top: 0.2rem;
   padding: 0;
-  width: 50%;
   list-style: none;
+}
+
+.container.grid {
+  width: 50%;
+}
+
+.container.list {
+  width: 100%;
 }
 
 .video {

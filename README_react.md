@@ -1,6 +1,6 @@
 ### 1. Project name: Learning React
 
-### 2. Period : 1 week 2 days
+### 2. Period : 1 week 3 days
 
 ### 3. What is React
 
@@ -671,7 +671,7 @@
   `method: 'GET',`
   `redirect: 'follow'`
   };
-  `fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResult=25&key=AIzaSyBUFXS78JwP8FLAaipOJY7lypUwWWhWgLU", requestOptions)`
+  `fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResult=25&key=[Your key]", requestOptions)`
   `.then(response => response.json())`
   `.then(result => setVideos(result.items))`
   `.catch(error => console.log('error', error));`
@@ -727,7 +727,7 @@
   `</li>`
   );
 
-- The videos list should be displayed on left and right side of body tag. Because each of videos has border, in case of index.css, use `box-sizing: border-box;` to match balance of space considering any border and padding in the values I specify for element's width and height. This makes it much easier to size element. In case of video_list.module.css, use `flex-wrap: wrap;` to wrap onto multipl lines in configured area instead of forced onto one line when using `display: flex;`. In case of video_item.module.css, use `<div className={styles.video}>` to assign `padding-left: 0.2rem;` per each of video. `<div>` is used as child element of `<li className={style.container}>`.
+- The videos list should be displayed on left and right side of body tag. Because each of videos has border, in case of index.css, use `box-sizing: border-box;` to match balance of space considering any border and padding in the values I specify for element's width and height. This makes it much easier to size element. In case of video_list.module.css, use `flex-wrap: wrap;` to wrap onto multiple lines in configured area instead of forced onto one line when using `display: flex;`. In case of video_item.module.css, use `<div className={styles.video}>` to assign `padding-left: 0.2rem;` per each of video. `<div>` is used as child element of `<li className={style.container}>`.
 
 - In case of index.css,
   `*` {
@@ -794,7 +794,7 @@
   `method: 'GET',`
   `redirect: 'follow'`
   };
-  `fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyBUFXS78JwP8FLAaipOJY7lypUwWWhWgLU`, requestOptions)` `.then(response => response.json())` `.then(result => result.items.map(item => ({...item, id: item.id.videoId })))` `.then(items => setVideos(items))` `.catch(error => console.log('error', error));`}`return`( `<>` `<SearchHeader onSearch={search} />` `<VideoList videos={videos} />` `</>`
+  `fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=[Your key]`, requestOptions)` `.then(response => response.json())` `.then(result => result.items.map(item => ({...item, id: item.id.videoId })))` `.then(items => setVideos(items))` `.catch(error => console.log('error', error));`}`return`( `<>` `<SearchHeader onSearch={search} />` `<VideoList videos={videos} />` `</>`
   );
   }
 
@@ -867,6 +867,119 @@
 - In case of semi-output,
 
 - <img src="./img/output10.gif" width="700" height="350">
+
+#### 8-5. Add selectedVideo when selecting one of video
+
+- Selected video is memorized when clicking the video. And then, show the video with detailed information such as title, channeltitle, description. Use `const [selectedVideo, setselectedVideo] = useState(null)` to creat not only null of initial value but also updated function value.
+
+- To upload and ready to play video, please refer to below. In case of app.jsx, use `const SelectedVideo = (video) => {setSlectedVideo(video);}` to update video. And then, use `onVideoClick={SelectedVideo}` within `<VideoList />` to use the updated video as props. In addition, because other webpage should be updated only when clicking selected video, use `{selectedVideo && <div> <VideoDetail video={selectedVideo} /> </div>}`. Use `onClick={()=> onVideoClick(video)}` within `<li>` of VideoItem component. `onVideoClick={onVideoClick}` should be needed within `<VideoItem />` on VideoList component because VideoList is parent component of VideoItem. `display={display}` is same as `onVideoClick={onVideoClick}`.
+
+- Creat video_detail component and use `<iframe>` within the component to play the video regarding selected video. In case of `src` code within `<iframe>`, use `https://www.youtube.com/embed/${video.id}`. In case of `initial screen`, display videos list in 2 rows and in case of `other webpage`, display videos list in a row. Use `const displayType = display === 'list' ? styles.list : styles.grid` within `VideoItem component`. Use `width: 50%` on `.container.grid` and `width: 100%` on `.container.list` of `video_item.module.css`. If display is list, Use `flex: 1 1 70%` on `.detail` and use `flex: 1 1 30%` on `.list` of `app.module.css` to adjust detail space and list space on other webpage.
+
+- component tags related to .jsx file use props and className is also transfered as props if className is applied to within component tag. So, styling would not be implemented. Please use className within `<div>` for styling CSS. `<div>` is parent tag of component tag.
+
+- In case of video_detail.jsx,
+  `import React from 'react';`
+  `import styles from './video_detail.module.css';`
+  `const VideoDetail = ({video}) => (`
+  `<section className={styles.detail}>`
+  `<iframe className={styles.video}`
+  `type="text/html"`
+  `width="100%"`
+  `height="500px"`
+  `src={`https://www.youtube.com/embed/${video.id}`}`
+  `frameborder="0"`
+  `allowfullscreen></iframe>`
+  `<h2>{video.snippet.title}</h2>`
+  `<h3>{video.snippet.channelTitle}</h3>`
+  `<pre className={styles.description}>{video.snippet.description}</pre>`
+  `</section>`
+  );
+  `export default VideoDetail;`
+
+- In case of video_detail.module.css,
+  `.detail` {
+  `padding: 0.2rem;`
+  }
+  `.description` {
+  `white-space: pre-wrap;`
+  }
+
+- In case of app.jsx,
+  `import VideoDetail from './components/video_detail/video_detail';`
+  `function App()` {
+  `const SelectedVideo = (video) => {`
+  `setSelectedVideo(video);`
+  }
+  `return` (
+  `<section className={styles.content}>`
+  `{selectedVideo && <div className={styles.detail}>`
+  `<VideoDetail video={selectedVideo} />`
+  `</div>}`
+  `<div className={styles.list}>`
+  `<VideoList`
+  `videos={videos}`
+  `onVideoClick={SelectedVideo}`
+  `display={selectedVideo ? 'list' : 'grid'} />`
+  `</div>`
+  `</section>`
+  );
+  }
+
+- In case of app.module.css,
+  `.content` {
+  `display: flex;`
+  }
+  `.detail` {
+  `flex: 1 1 70%;`
+  }
+  `.list` {
+  `flex: 1 1 30%;`
+  }
+
+- In case of video_list.jsx,
+  `const VideoList = ({videos, onVideoClick, display}) => (`
+  `<ul className={styles.videos}>`
+  `{videos.map(video => (`
+  `<VideoItem`  
+   `onVideoClick={onVideoClick}`
+  `display={display} />`
+  ))}
+  `</ul>`
+  );
+
+- In case of video_item.jsx,
+  `const VideoItem = ({video, video: {snippet}, onVideoClick, display}) => {`
+  `const displayType = display === 'list' ? styles.list : styles.grid;`
+  `return` (
+  `<li className={`${styles.container} ${displayType}`} onClick={()=> onVideoClick(video)}>`
+  `<div className={styles.video}>`
+  `<img className={styles.thumbnails} src={snippet.thumbnails.medium.url} alt="video thumbnail" />`
+  `<div>`
+  `<p className={styles.title}>{snippet.title}</p>`
+  `<p className={styles.channelTitle}>{snippet.channelTitle}</p>`
+  `</div>`
+  `</div>`
+  `</li>`
+  );
+  };
+
+- In case of video_item.module.css,
+  `.container` {
+  `margin-top: 0.2rem;`
+  `padding: 0;`
+  `list-style: none;`
+  }
+  `.container.grid` {
+  `width: 50%;`
+  }
+  `.container.list` {
+  `width: 100%;`
+  }
+
+- In case of semi-output,
+
+- <img src="./img/output11.gif" width="700" height="350">
 
 ### 9. Resolution of failures
 

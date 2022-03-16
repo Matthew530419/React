@@ -1082,5 +1082,3 @@
 - <img src="./img/error9-1.gif" width="700" height="300">
 
 - countermeasure: use `.then(items => setVideos(items))` and `.then(items => setSelectedVideo(null))` respectively. these mean `setSelectedVideo(null)` after `setVideo(items)`.
-
-- <img src="./img/error9-2.gif" width="700" height="300">

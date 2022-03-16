@@ -1079,6 +1079,6 @@
 
 - symptom: Previous videolist with grid displayed and then updated videolist with grid displayed when starting with searching on `VideoDetail webpage`. I use `.then(items => setVideos(items), setSelectedVideo(null))` within search function on `app.jsx`. setSelectedVideo value should be null to display grid because I implement not only `display='list'` with `<ul>` but also `display='grid'` if `display!='list'`.
 
-- <img src="./img/error9-1.gif" width="700" height="300">
+- <img src="./img/error9.gif" width="700" height="300">
 
 - countermeasure: use `.then(items => setVideos(items))` and `.then(items => setSelectedVideo(null))` respectively. these mean `setSelectedVideo(null)` after `setVideo(items)`.

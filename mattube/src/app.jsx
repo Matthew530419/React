@@ -18,8 +18,8 @@ function App() {
     fetch(`https://youtube.googleapis.com/youtube/v3/search/?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyCZj1OxRQi7HhUA7A0H23CODBTwFeBAC7c`, requestOptions)
       .then(response => response.json())
       .then(result => result.items.map(item => ({...item, id: item.id.videoId})))
-      .then(items => setVideos(items))
-      .then(items => setSelectedVideo(null))
+      .then(items => setVideos(items), setSelectedVideo(null))
+      //.then(items => setSelectedVideo(null))
       .catch(error => console.log('error', error));
   }
 

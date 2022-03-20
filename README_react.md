@@ -658,7 +658,7 @@
 
 - In case you want to call callback function when something is mounted or updated, use `useEffect`. `useEffect` is similiar with React class lifecycle methods. `[]` could be typed as second argument after callback function with comma `,` to operate useEffect only once(mount or unmount) preventing to operate useEffect per update.
 
-- Popular titles are loaded with code format of Javascript offered from postman according to Youtube API. Use `props.video.snippet.title` on `video_item.jsx` to mount title on window tab. In addition, use `props.videos.map(video => ())` on `video_list.jsx` to use video list as parameter of vidoes object.
+- Popular titles are loaded with code format of Javascript offered from postman according to Youtube API. `response` should be changed from `response.text()` to `response.json()` when using `useState()` with APIs for proper tree. Use `props.video.snippet.title` on `video_item.jsx` to mount title on window tab. In addition, use `props.videos.map(video => ())` on `video_list.jsx` to use video list as parameter of vidoes object.
 
 - In case of app.jsx,
   `import { useEffect, useState } from 'react';`
@@ -681,18 +681,11 @@
   }
   `export default App;`
 
-- In case of video_item.jsx,
-  `import React from 'react';`
-  `const VideoItem = (props) => (`
-  `<h1>{props.video.snippet.title}</h1>`
-  );
-  `export default VideoItem;`
-
 - In case of video_list.jsx,
   `import React from 'react';`
   `import VideoItem from '../video_item/video_item';`
   `const VideoList = (props) => (`
-  `<ul>`
+  `<ul className={styles.videos}>`
   `{props.videos.map(video => (`
   `<VideoItem`
   `key={video.id}`
@@ -701,6 +694,13 @@
   `</ul>`
   );
   `export default VideoList;`
+
+- In case of video_item.jsx,
+  `import React from 'react';`
+  `const VideoItem = (props) => (`
+  `<h1>{props.video.snippet.title}</h1>`
+  );
+  `export default VideoItem;`
 
 - In case of semi-output,
 

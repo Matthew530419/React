@@ -1082,3 +1082,11 @@
 - <img src="./img/error9.gif" width="700" height="300">
 
 - countermeasure: use `.then(items => setVideos(items))` and `.then(items => setSelectedVideo(null))` respectively. these mean `setSelectedVideo(null)` after `setVideo(items)`.
+
+#### 9-11.
+
+- symptom: Empty screen is displayed and videos also has empty array on VideoList component. I guess the empty array comes from useState([]). useEffect can not be implemented because I used `useEffect = (()=> {})` even though syntax is `useEffect(()=> {})`.
+
+- <img src="./img/error10.png" width="700" height="250">
+
+- countermeasure: use `useEffect(()=> {})` instead of `useEffect = (()=> {})`.
